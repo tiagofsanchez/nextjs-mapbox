@@ -1,24 +1,50 @@
 import { StaticMap } from "react-map-gl";
-import styles from "../styles/Home.module.css";
+import styled from "styled-components";
+
+const Container = styled.div`
+  display: grid;
+  grid-template-rows: auto;
+  grid-gap: 50px;
+  .text {
+    margin: 20px;
+  }
+  .staticgrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-gap: 10px;
+  }
+`;
+
+const TheMAP = ({ MAPBOXAPI }) => (
+  <StaticMap
+    mapboxApiAccessToken={MAPBOXAPI}
+    width="100%"
+    height="400px"
+    latitude={39.37521}
+    longitude={-9.34102}
+    zoom={15}
+  />
+);
 
 const PlayingWithStaticMaps = (props) => {
-  const { MAPBOXAPI } = props
+  const { MAPBOXAPI } = props;
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <h1>Playing with Static Maps</h1>
-        <p>Full width</p>
-        <StaticMap
-          mapboxApiAccessToken={MAPBOXAPI}
-          width="100vw"
-          height="600px"
-          latitude={39.37521}
-          longitude={-9.34102}
-          zoom={15}
-        />
-  
-      </main>
-    </div>
+    <Container>
+      <section>
+        <div className="text">
+          <h1>Playing with Static Maps</h1>
+          <p>Full width</p>
+        </div>
+
+        <TheMAP MAPBOXAPI={MAPBOXAPI} />
+      </section>
+      <div className="staticgrid">
+        <TheMAP MAPBOXAPI={MAPBOXAPI} />
+        <TheMAP MAPBOXAPI={MAPBOXAPI} />
+        <TheMAP MAPBOXAPI={MAPBOXAPI} />
+        <TheMAP MAPBOXAPI={MAPBOXAPI} />
+      </div>
+    </Container>
   );
 };
 
