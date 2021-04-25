@@ -6,9 +6,9 @@ const API = process.env.MAPBOX_KEY;
 const DynamicMap = ({ MAPBOXAPI }) => {
   const [viewport, setViewport] = useState({
     // The latitude and longitude of the center of London
-    latitude: 37.78,
-    longitude: -122.45,
-    zoom: 5,
+    latitude: 39.37521,
+    longitude: -9.34102,
+    zoom: 15,
     width: "100%",
     height: "600px",
   });

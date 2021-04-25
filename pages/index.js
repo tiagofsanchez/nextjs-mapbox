@@ -1,12 +1,14 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import styled from "styled-components";
 
 const MapGridContainer = styled.div`
   width: 100%;
   display: grid;
-
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-gap: 10px;
   .mapgrid {
     display: grid;
     grid-template-rows: auto;
@@ -24,7 +26,7 @@ const DynamicMap = dynamic(() => import("../components/DynamicMap"), {
 });
 
 export default function Home(props) {
-  const {MAPBOXAPI } = props
+  const { MAPBOXAPI } = props;
   return (
     <div className={styles.container}>
       <Head>
@@ -41,17 +43,19 @@ export default function Home(props) {
               A static map that could be very useful when the user doesn't
               require interaction
             </p>
-            <StaticMap MAPBOXAPI={MAPBOXAPI}/>
-            <p>Check it out</p>
+            <StaticMap MAPBOXAPI={MAPBOXAPI} />
+            <Link href="/playing-with-static-maps">
+              <p className={styles.card}> <a>Check it out</a> </p>
+            </Link>
           </div>
           <div className="mapgrid">
             <h4>Dynamic Map</h4>
             <p>
-              The user will require same sort of interactions, like searching
-              the map surroundings
+              The user will require same sort of interaction, like scrolling or
+              zooming the map
             </p>
-            <DynamicMap MAPBOXAPI={MAPBOXAPI}/>
-            <p>Check it out</p>
+            <DynamicMap MAPBOXAPI={MAPBOXAPI} />
+            <p className={styles.card}>Check it out</p>
           </div>
         </MapGridContainer>
       </main>
@@ -62,21 +66,20 @@ export default function Home(props) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Test by Tiago
+          by tiago
         </a>
       </footer>
     </div>
   );
 }
 
-export async function getServerSideProps() { 
- // This is the only way that I can get access to the 
- // my env variable
-  const MAPBOXAPI = process.env.MAPBOX_KEY
-  return { 
-    props: { 
-      MAPBOXAPI: MAPBOXAPI
-    }
-  }
+export async function getServerSideProps() {
+  // This is the only way that I can get access to the
+  // my env variable
+  const MAPBOXAPI = process.env.MAPBOX_KEY;
+  return {
+    props: {
+      MAPBOXAPI: MAPBOXAPI,
+    },
+  };
 }
-
