@@ -1,65 +1,82 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Head from "next/head";
+import styles from "../styles/Home.module.css";
+import dynamic from "next/dynamic";
+import styled from "styled-components";
 
-export default function Home() {
+const MapGridContainer = styled.div`
+  width: 100%;
+  display: grid;
+
+  .mapgrid {
+    display: grid;
+    grid-template-rows: auto;
+  }
+`;
+
+const StaticMap = dynamic(() => import("../components/StaticMapComponent"), {
+  loading: () => <h1>Loading ...</h1>,
+  ssr: false,
+});
+
+const DynamicMap = dynamic(() => import("../components/DynamicMap"), {
+  loading: () => <h1>Loading...</h1>,
+  ssr: false,
+});
+
+export default function Home(props) {
+  const {MAPBOXAPI } = props
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>Testing MapBox with Next</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <h1 className={styles.title}>Testing MapBox with Next</h1>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
+        <MapGridContainer>
+          <div className="mapgrid">
+            <h4>Static Map</h4>
             <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
+              A static map that could be very useful when the user doesn't
+              require interaction
             </p>
-          </a>
-        </div>
+            <StaticMap MAPBOXAPI={MAPBOXAPI}/>
+            <p>Check it out</p>
+          </div>
+          <div className="mapgrid">
+            <h4>Dynamic Map</h4>
+            <p>
+              The user will require same sort of interactions, like searching
+              the map surroundings
+            </p>
+            <DynamicMap MAPBOXAPI={MAPBOXAPI}/>
+            <p>Check it out</p>
+          </div>
+        </MapGridContainer>
       </main>
 
       <footer className={styles.footer}>
         <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+          href="https://www.tiagofsanchez.com/"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
+          Test by Tiago
         </a>
       </footer>
     </div>
-  )
+  );
 }
+
+export async function getServerSideProps() { 
+ // This is the only way that I can get access to the 
+ // my env variable
+  const MAPBOXAPI = process.env.MAPBOX_KEY
+  return { 
+    props: { 
+      MAPBOXAPI: MAPBOXAPI
+    }
+  }
+}
+
