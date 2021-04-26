@@ -1,4 +1,4 @@
-import { StaticMap } from "react-map-gl";
+import { StaticMap, Marker } from "react-map-gl";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -10,6 +10,8 @@ const Container = styled.div`
   }
   .staticgrid {
     display: grid;
+    width: 90%;
+    margin: auto;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     grid-gap: 10px;
   }
@@ -26,6 +28,28 @@ const TheMAP = ({ MAPBOXAPI }) => (
   />
 );
 
+const TheMapWithMarker = ({ MAPBOXAPI }) => {
+  return (
+    <StaticMap
+      mapboxApiAccessToken={MAPBOXAPI}
+      width="100%"
+      height="400px"
+      latitude={39.37521}
+      longitude={-9.34102}
+      zoom={15}
+    >
+      <Marker
+        latitude={39.37521}
+        longitude={-9.34102}
+        offsetLeft={-20}
+        offsetTop={-10}
+      >
+        <h4>here</h4>
+      </Marker>
+    </StaticMap>
+  );
+};
+
 const PlayingWithStaticMaps = (props) => {
   const { MAPBOXAPI } = props;
   return (
@@ -35,15 +59,31 @@ const PlayingWithStaticMaps = (props) => {
           <h1>Playing with Static Maps</h1>
           <p>Full width</p>
         </div>
-
         <TheMAP MAPBOXAPI={MAPBOXAPI} />
       </section>
-      <div className="staticgrid">
-        <TheMAP MAPBOXAPI={MAPBOXAPI} />
-        <TheMAP MAPBOXAPI={MAPBOXAPI} />
-        <TheMAP MAPBOXAPI={MAPBOXAPI} />
-        <TheMAP MAPBOXAPI={MAPBOXAPI} />
-      </div>
+      <section>
+        <div className="text">
+          <p>Making a grid</p>
+        </div>
+        <div className="staticgrid">
+          <TheMAP MAPBOXAPI={MAPBOXAPI} />
+          <TheMAP MAPBOXAPI={MAPBOXAPI} />
+          <TheMAP MAPBOXAPI={MAPBOXAPI} />
+          <TheMAP MAPBOXAPI={MAPBOXAPI} />
+        </div>
+      </section>
+      <section>
+        <div className="text">
+          <p>Playing with Marker on the map</p>
+        </div>
+        <TheMapWithMarker MAPBOXAPI={MAPBOXAPI} />
+      </section>
+      <section>
+        <div className="text">
+          <h1>Conclusion</h1>
+          <p></p>
+        </div>
+      </section>
     </Container>
   );
 };
