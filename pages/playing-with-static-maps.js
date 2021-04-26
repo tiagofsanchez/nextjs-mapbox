@@ -17,6 +17,10 @@ const Container = styled.div`
   }
 `;
 
+const MarkerContainer = styled.div`
+content
+`;
+
 const TheMAP = ({ MAPBOXAPI }) => (
   <StaticMap
     mapboxApiAccessToken={MAPBOXAPI}
