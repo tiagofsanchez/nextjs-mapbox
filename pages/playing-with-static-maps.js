@@ -17,17 +17,18 @@ const Container = styled.div`
   }
 `;
 
-const MarkerContainer = styled.div`
-content
-`;
+const latitude= 39.5998
+const longitude=-9.0757
+
+
 
 const TheMAP = ({ MAPBOXAPI }) => (
   <StaticMap
     mapboxApiAccessToken={MAPBOXAPI}
     width="100%"
     height="400px"
-    latitude={39.37521}
-    longitude={-9.34102}
+    latitude={latitude}
+    longitude={longitude}
     zoom={15}
   />
 );
@@ -38,13 +39,13 @@ const TheMapWithMarker = ({ MAPBOXAPI }) => {
       mapboxApiAccessToken={MAPBOXAPI}
       width="100%"
       height="400px"
-      latitude={39.37521}
-      longitude={-9.34102}
+      latitude={latitude}
+      longitude={longitude}
       zoom={15}
     >
       <Marker
-        latitude={39.37521}
-        longitude={-9.34102}
+        latitude={latitude}
+        longitude={longitude}
         offsetLeft={-20}
         offsetTop={-10}
       >
