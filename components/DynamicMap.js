@@ -1,8 +1,6 @@
 import { useState } from "react";
 import ReactMapGL from "react-map-gl";
 
-const API = process.env.MAPBOX_KEY;
-
 const DynamicMap = ({ MAPBOXAPI }) => {
   const [viewport, setViewport] = useState({
     // The latitude and longitude of the center of London

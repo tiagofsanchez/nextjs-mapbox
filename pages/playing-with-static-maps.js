@@ -17,10 +17,8 @@ const Container = styled.div`
   }
 `;
 
-const latitude= 39.5998
+const latitude=39.5998
 const longitude=-9.0757
-
-
 
 const TheMAP = ({ MAPBOXAPI }) => (
   <StaticMap
